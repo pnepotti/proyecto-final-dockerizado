@@ -1,4 +1,3 @@
-backendToraxIA/diagnostics/ia_models/*.h5
-backendToraxIA/venv
-backendToraxIA/media/radiographies
-backendToraxIA/media/futuro_dataset
+backendToraxIA/diagnostics/ia_models/
+backendToraxIA/venv/
+backendToraxIA/media/
