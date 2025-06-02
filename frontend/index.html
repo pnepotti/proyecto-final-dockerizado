@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torax iA - Login</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="./assets/img/favicon.ico">
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content-wrapper"> <!-- Contenedor padre para flexbox -->
+        <div class="col col-12 col-lg-7">
+            <div class="card intranet-card intranet-card--left ">
+                <div class="card-body intranet-card__body">
+                    <div class="logo">
+                        <img src="assets/img/logo.svg" alt="Logo Torax IA" class="logo">
+                    </div>
+                    <h1 class="titulo">TORAX IA</h1>
+                    <h2 class="bajada">LOG IN</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="botonera">
+                <form id="loginForm">
+                    <br>
+                    <input type="text" name="username" id="username" placeholder="Nombre de Usuario"
+                        style="margin-top: 1.5em;" required><br><br>
+                    <div class="password-wrapper">
+                        <input type="password" name="password" id="passwordInput" placeholder="Contraseña"
+                            style="margin-top: 1.5em;" required>
+                        <span class="toggle-password"></span>
+                    </div>
+                    <button style="margin-top: 2.5em;" class="btn" type="submit" id="login">Iniciar
+                        Sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer intranet-footer">
+        <hr class="intranet-footer__hr">
+        <div class="intranet-footer__copy">
+            © Nepotti, Sivori, Rodriguez Rodriguez - Patente pendiente
+        </div>
+    </footer>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

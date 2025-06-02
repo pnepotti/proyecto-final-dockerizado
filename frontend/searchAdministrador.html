@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="./assets/img/favicon.ico">
+    <title>Torax iA - Búsqueda de diagnósticos</title>
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content-wrapper"> <!-- Contenedor padre para flexbox -->
+        <div class="col col-12 col-lg-7">
+            <div class="card intranet-card intranet-card--left ">
+                <div class="card-body intranet-card__body">
+                    <div class="logo">
+                       <img src="assets/img/logo.svg" alt="Logo Torax IA" class="logo">
+                    </div>
+                    <h1 class="titulo">TORAX IA</h1>
+                    <h2 class="bajada">BUSCADOR</h2>
+                    <p><span id="nombreUsuario"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="botonera">
+                <h1>Buscar Radiografías</h1><br><br>
+                <form method="POST" id="search-form">
+                    <h3>Seleccionar Opción de Búsqueda</h3>
+                    <label for="opcionDeBusqueda">Opción de Búsqueda</label>
+                    <select id="opcionDeBusqueda" name="opcionDeBusqueda" required>
+                        <option value="" disabled selected>Buscar por: </option>
+                        <option value="dni" data-opcion="Ingresar DNI del paciente">DNI de Paciente</option>
+                        <option value="matricula" data-opcion="Ingresar matrícula del médico">Matrícula del Médico
+                        </option>
+                        <option value="idRx" data-opcion="Ingresar ID de radiografía">ID de Radiografía</option>
+                    </select><br><br>
+                    <input type="text" id="filtroDeBusqueda" name="search_value" placeholder="Elegir opción de búsqueda"
+                        required><br>
+                    <button class="btn" type="submit">Buscar</button>
+                    <button class="btn" id="LimpiarButton1" type="button"
+                        onclick="document.getElementById('search-form').reset()">Borrar</button>
+                    <button class="btn" id="volverButton" type="button"
+                        onclick="window.location.href='./index.html'">Salir</button>
+
+                </form>
+                <!-- Contenedor para mostrar el nombre del paciente -->
+                <div id="patient-name-container"></div>
+
+                <!-- Contenedor de imágenes -->
+                <div id="radiography-container" class="image-list">
+                    <!-- Aquí se agregarán las imágenes dinámicamente -->
+                </div>
+                <!-- Fin del contenedor de imágenes -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para el popup de la imagen -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="zoom-img">
+            <img id="modal-image" class="modal-content" alt="Imagen ampliada">
+        </div>
+    </div>
+
+    <footer class="footer intranet-footer">
+        <hr class="intranet-footer__hr">
+        <div class="intranet-footer__copy">
+            © Nepotti, Sivori, Rodriguez Rodriguez - Patente pendiente
+        </div>
+    </footer>
+    <script>
+        const admin = localStorage.getItem('nombreAdmin');
+        document.getElementById("nombreUsuario").textContent = admin;
+    </script>
+    <script src="js/searchTecnico.js"></script>
+
+</body>
+
+</html>

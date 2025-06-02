@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="./assets/img/favicon.ico">
+    <title>Torax iA - Modelo de predicciones</title>
+    <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <div class="col col-12 col-lg-7">
+            <div class="card intranet-card intranet-card--left">
+                <div class="card-body intranet-card__body">
+                    <div class="logo">
+                       <img src="assets/img/logo.svg" alt="Logo Torax IA" class="logo">
+                    </div>
+                    <h1 class="titulo">TORAX iA</h1>
+                    <h2 class="bajada">Diagnósticos Rx</h2>
+                    <p><span id="nombreUsuario"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="botonera">
+                <h1>Modelo de Predicción de Enfermedades</h1>
+                <br><br>
+                <form id="diagnostic-form">
+                    <h3>Buscar Paciente</h3>
+                    <label for="patientDni">Dni del Paciente</label><br><br>
+                    <input type="text" id="patientDni" name="patientDni" placeholder="Ingresar DNI del paciente">
+                    <button class="btn" id="buscarPatient" type="button">Buscar</button>
+
+                    <p id="patientNameLabel">Nombre del Paciente</p>
+                    <h3 id="patientName" name="patientName"></h3><br>
+
+                    <h3>Seleccionar Médico Solicitante</h3>
+                    <label for="doctorName">Nombre del Médico Solicitante</label>
+                    <select id="doctorName" name="doctorName" class="btn" required>
+                        <option value="" disabled selected>Seleccione un médico</option>
+                        <option value="Dr. Rodriguez" data-matricula="MP1234">Dr. Rodriguez</option>
+                        <option value="Dra. Garcia" data-matricula="MP5678">Dra. Garcia</option>
+                        <option value="Dr. Perez" data-matricula="MP9101">Dr. Perez</option>
+                    </select>
+
+                    <p id="doctorMatriculaLabel">Matrícula del Médico</p>
+                    <h3 id="doctorMatricula" name="doctorMatricula"></h3><br>
+
+                    <h3>Seleccionar Imagen</h3>
+                    <label for="imageInput">Radiografía de tórax</label>
+                    <label for="imageInput" class="btn">
+                        Seleccionar archivo
+                    </label>
+                    <span id="file-name">Ningún archivo seleccionado</span>
+                    <input type="file" id="imageInput" name="imageInput" accept="image/*" required>
+                    <img id="imagen" alt="Vista previa de la imagen seleccionada"><br><br>
+
+                    <h3>Informe del radiólogo</h3>
+                    <!--<label for="descripcion">Información extra</label><br><br>-->
+                    <textarea type="text" id="descripcion" name="descripcion" placeholder="Ingresar comentario" rows="4"
+                        cols="50"></textarea><br><br>
+
+                    <div id="loading" style="display: none;">Procesando imagen...</div>
+                    <div id="result"></div>
+                    <button class="btn" id="predictButton" type="submit">Guardar y Predecir</button>
+                    <button class="btn" id="reportButton" type="button" style="display: none;">Generar Reporte</button>
+                </form>
+
+                <button class="btn" id="LimpiarButton" type="button">Borrar</button>
+                <button class="btn" id="volverButton" type="button" onclick="window.history.back()">Salir</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer intranet-footer">
+        <hr class="intranet-footer__hr">
+        <div class="intranet-footer__copy">
+            © Nepotti, Sivori, Rodriguez Rodriguez - Patente pendiente
+        </div>
+    </footer>
+    <div id="reportModal" class="modalReporte">
+        <div class="modal-content" style="overflow: auto;">
+            <span class="close" style="color:black">&times;</span>
+            <div id="reportContent">
+                <h2>Informe de Radiología</h2>
+                <div>
+                    <img id="reportImage" alt="Radiografía de tórax" style="width: 100%; max-height: 500px;">
+                </div>
+                <div>
+                    <p><strong>Hospital:</strong> <span id="reportHospital"></span></p>
+                    <p id="fecha"></p>
+                    <p><strong>Paciente:</strong> <span id="reportPatient"></span></p>
+                    <p><strong>DNI de paciente:</strong> <span id="reportPatientDni"></span></p>
+                    <p><strong>ID de radiografía:</strong> <span id="reportRadiographyId"></span></p>
+                    <p><strong>Médico solicitante:</strong> <span id="reportDoctor"></span></p>
+                    <p><strong>Predicción de diagnóstico:</strong> <span id="reportPrediccion"></span></p>
+                    <p><strong>Probabilidad:</strong> <span id="reportProbability"></span></p>
+                    <p><strong>Confianza:</strong> <span id="reportConfidence"></span></p>
+                    <p><strong>Incertidumbre:</strong> <span id="reportEntropy"></span></p>
+                    <p><strong>Descripción:</strong> <span id="reportDescripcion"></span></p>
+                    <p><strong>Firma:</strong></p><br>
+                    <p>Informe con prediccion de anomalías mediante inteligencia artificial</p>
+                    <p><strong>Nota:</strong>No es valido como diagnostico medico</p>
+                </div>
+                <button class="no-print" onclick="printReport()">Imprimir o Descargar Reporte</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const admin = localStorage.getItem('nombreAdmin');
+        const tecniconombre = localStorage.getItem('nombreTecnico');
+        if (admin !== null && admin !== '') {
+            document.getElementById("nombreUsuario").textContent = admin;
+        } else if (tecniconombre !== null && tecniconombre !== '') {
+            document.getElementById("nombreUsuario").textContent = tecniconombre;
+        }
+
+    </script>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

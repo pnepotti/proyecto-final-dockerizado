@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: torax_ia_bd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tiagrupo7
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: .
+    volumes:
+      - .:/app
+      - ./media:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=torax_ai.settings
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgres://postgres:tiagrupo7@db:5432/torax_ia_bd
+
+volumes:
+  postgres_data:
