@@ -10,11 +10,11 @@ services:
     ports:
       - "5432:5432"
 
-  backend:
-    build: .
+  backend-torax:
+    build: ./backendToraxIA
     volumes:
-      - .:/app
-      - ./media:/app/media
+      - ./backendToraxIA:/app
+      - ./backendToraxIA/media:/app/media
     ports:
       - "8000:8000"
     depends_on:
