@@ -1,3 +1,7 @@
 backendToraxIA/diagnostics/ia_models/
 backendToraxIA/venv/
 backendToraxIA/media/
+
+backendBrainIA/resources/ia_models/
+backendBrainIA/resonancias/
+
