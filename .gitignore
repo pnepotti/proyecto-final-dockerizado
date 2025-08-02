@@ -5,3 +5,8 @@ backendToraxIA/media/
 backendBrainIA/resources/ia_models/
 backendBrainIA/resonancias/
 
+# Ignorar archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
