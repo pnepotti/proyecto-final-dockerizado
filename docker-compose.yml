@@ -1,28 +1,33 @@
 services:
   db:
     image: postgres:15
-    environment:
-      POSTGRES_DB: torax_ia_bd
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: tiagrupo7
+    env_file:
+      - ./.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend-torax:
     build: ./backendToraxIA
+    env_file:
+      - ./.env
+    command: >
+      sh -c "python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backendToraxIA:/app
       - ./backendToraxIA/media:/app/media
     ports:
       - "8000:8000"
     depends_on:
-      - db
-    environment:
-      - DJANGO_SETTINGS_MODULE=torax_ai.settings
-      - PYTHONUNBUFFERED=1
-      - DATABASE_URL=postgres://postgres:tiagrupo7@db:5432/torax_ia_bd
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:

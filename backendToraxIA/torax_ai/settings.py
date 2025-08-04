@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dy*@f$l9o6u!#gc02rvgfu)12wq7y*xgar=ha1o&*^b@q(xpx6'
+SECRET_KEY = os.getenv(
+    'DJANGO_SECRET_KEY', 'django-insecure-dy*@f$l9o6u!#gc02rvgfu)12wq7y*xgar=ha1o&*^b@q(xpx6')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
-
+# Lee los hosts permitidos desde una variable de entorno.
+allowed_hosts_str = os.getenv('DJANGO_ALLOWED_HOSTS')
+ALLOWED_HOSTS = allowed_hosts_str.split(',') if allowed_hosts_str else []
 
 # Application definition
 
@@ -77,15 +80,9 @@ WSGI_APPLICATION = 'torax_ai.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# Configura la base de datos usando la variable de entorno DATABASE_URL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'torax_ia_bd',  # Nombre de la base de datos en PostgreSQL
-        'USER': 'postgres',
-        'PASSWORD': 'tiagrupo7',
-        'HOST': 'db',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 
@@ -136,4 +133,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas las solicitudes
+# Para desarrollo, puedes permitir todos los orígenes.
+# En producción, es más seguro especificar los orígenes permitidos.
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Para producción (cuando DEBUG=False), define esta variable de entorno con los dominios permitidos.
+# Ejemplo: 'http://mi-frontend.com,https://mi-frontend.com'
+CORS_ALLOWED_ORIGINS = []
+if cors_origins := os.getenv('CORS_ALLOWED_ORIGINS'):
+    CORS_ALLOWED_ORIGINS = cors_origins.split(',')

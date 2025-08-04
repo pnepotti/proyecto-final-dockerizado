@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8000'; // Cambiar en producción
+const baseUrl = 'http://127.0.0.1:8000'; // Cambiar en producción
 // Obtener el modal y elementos
 const modal = document.getElementById('myModal');
 const modalImg = document.getElementById('modal-image');
