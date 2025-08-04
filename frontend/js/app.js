@@ -87,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Realizar la solicitud a la API
-            const response = await fetch('http://localhost:8000/diagnostics/api/diagnostic/', {
+            console.log('Enviando solicitud a la API...');
+            const response = await fetch('http://127.0.0.1:8000/diagnostics/api/diagnostic/', {
                 method: 'POST',
                 body: formData
             });
