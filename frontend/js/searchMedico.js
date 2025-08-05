@@ -10,6 +10,12 @@ const otraEnfermedad = document.getElementById('otraEnfermedad');
 const selectElement = document.getElementById("enfermedadVal");
 let diagnostico = "";
 
+opcionDeBusqueda.addEventListener('change', function () {
+    filtroDeBusqueda.value = "";
+    const selectedOption = this.options[this.selectedIndex];
+    const selectedOpcion = selectedOption.getAttribute('data-opcion');
+    filtroDeBusqueda.placeholder = selectedOpcion;
+});
 
 async function actualizarRadiografia(idRx) {
     try {
